@@ -1,0 +1,45 @@
+Zadanie 2.
+Kompilator języka Latte (LLVM)
+
+Tomasz Madej - 385853
+
+Moje rozwiązanie korzysta z plików wygenerowanych przez BNFC. Jest zaimplementowane w języku C++.
+
+Makefile znajduje się w katalogu src/, ze względu na sposób w jaki BNFC generuje pliki.
+Polecenie make w katalogu src/ buduje plik wykonywalny src/latc.
+
+Z pliku wykonywalnego src/latc, korzysta zaimplementowany w bashu plik wykonywalny latc_llvm. 
+
+Zawartość:
+
+1. lattests/
+	Przykłady dostarczone w treści zadania.
+
+2. LLVM/
+	Fragmenty kodu LLVM (prolog pliku wykonywalnego) używany podczas generowania kodu.
+
+3. src/
+	Wygenerowany w C++ przez BNFC szkielet języka Instant: Absyn, Parser, Skeleton, Printer, Test
+	oraz zaimplementowane Latte, Types, Operators, Helper.
+
+	Plik Absyn.H jest wzbogacony o definicję struktur stanu kompilatora oraz sygnatury funkcji pomocniczych, wykonujących analizę semantyczną oraz generowanie kodu, dla poszczególnych elementów drzewa składni programu.
+
+	Implementacje powyższych funkcji znajdują się w plikach:
+		- Latte.C: implementacje funkcji semanticAnalysis oraz generateLLVM.
+		- Types.C: implementacje funkcji operujących na typach danych.
+		- Operators.C: implementacje funkcji operatorów arytmetycznych oraz relacji.
+
+	Dodatkowo w plikach Helper.C oraz Helper.H znajdują się implementacje funkcji pomocniczych do generowania kodu oraz operowania na aktualnym stanie komplilatora.
+
+4. latc_llvm
+	Plik wykonywalny napisany w bashu. Wymaga on zbudowania projektu oraz istnienia src/latc.
+
+6. src/Makefile
+	Przy wywołaniu make pojawiają się warningi, wynikające ze sposobu w jaki BNFC generuje kod.
+
+7. README.txt.
+
+Optymalizacje:
+Moje rozwiązanie generuje kod wykonując zwijanie stałych.
+
+W swoim rozwiązaniu nie korzystam z żadnych dodatkowych, niestandardowych bibliotek.

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+NAME=$(basename $1 .ll)
+
+DIR=$(dirname $1)
+
+cd src
+
+if [[ "$DIR" = /* ]]
+then
+	./latc "$1"
+else
+	./latc "../$1"
+fi
+
+cd ..
+
+SAVE=$PWD
+cd $DIR
+llvm-as "$NAME.ll"
+cd $SAVE

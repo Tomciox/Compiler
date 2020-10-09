@@ -1,0 +1,30 @@
+make
+
+for i in $1*.lat; do
+	NAME2=$(basename $i .lat)
+	echo "$NAME2"
+	DIR=$(dirname $i)
+
+	NAME="$DIR/$NAME2"
+
+	./latc "$i"
+
+	clang "$NAME.ll" -o "$NAME"
+
+	if [ -f "$NAME.input" ]; then
+	./"$NAME" < "$NAME.input" > "$NAME.myoutput"
+	else
+		./"$NAME" > "$NAME.myoutput"	
+	fi
+
+	diff $NAME.output $NAME.myoutput
+	error=$?
+
+	if [ $error -eq 0 ]; then
+		echo "[OK]"
+	else
+		echo "[BAD]"
+	fi
+	echo ""
+done
+

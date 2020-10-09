@@ -1,0 +1,10 @@
+#!/bin/bash
+
+make
+
+for filename in ../lattests/$1/*.lat; do
+	NAME2=$(basename $filename .lat)
+        echo "$NAME2"
+	./latc $filename
+	echo ""
+done

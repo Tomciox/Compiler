@@ -1,0 +1,7 @@
+int main() {
+	if (("tomek" == "kemot") || 1 == 1)
+		printString("OK");
+	else
+		printString("BAD");
+	return 0;
+}
